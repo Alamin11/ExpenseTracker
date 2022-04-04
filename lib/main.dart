@@ -56,7 +56,56 @@ class MyHomePage extends StatelessWidget {
           Column(
               children: transactions
                   .map((tx) => Card(
-                        child: Text(tx.id),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 100.0,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 15.0,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.amberAccent,
+                                  width: 2,
+                                ),
+                              ),
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                //tx.amount.toString(),
+                                '\$ ${tx.amount}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.amber,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 12.0,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  tx.title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  tx.date.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ))
                   .toList()),
         ],
