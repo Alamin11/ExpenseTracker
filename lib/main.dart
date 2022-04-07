@@ -38,6 +38,14 @@ class MyHomePage extends StatelessWidget {
     ),
   ];
 
+  //Declaring two properties for the textField input
+  // String? titleInput;
+  // String? amountInput;
+
+  //Controller properties
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,19 +68,31 @@ class MyHomePage extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextField(
+                    decoration: const InputDecoration(
                       //label: Text('Title'),
                       labelText: 'Title',
                     ),
+                    //onChanged: (value) => titleInput = value,
+                    controller: titleController,
                   ),
-                  const TextField(
-                    decoration: InputDecoration(
+                  TextField(
+                    decoration: const InputDecoration(
                       labelText: 'Amount',
                     ),
+                    // onChanged: (value) {
+                    //   amountInput = value;
+                    // },
+                    controller: amountController,
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // print('titleInput = $titleInput');
+                      // print('amountInput = $amountInput');
+
+                      print(titleController.text);
+                      print(amountController.text);
+                    },
                     child: const Text('Add transaction'),
                   ),
                 ],
