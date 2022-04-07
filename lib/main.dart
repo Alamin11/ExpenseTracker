@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import './transaction.dart';
 
 void main(List<String> args) {
@@ -44,13 +45,38 @@ class MyHomePage extends StatelessWidget {
         title: Text(titleText),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Card(
             child: Container(
               width: double.infinity,
               color: Colors.amberAccent,
               child: const Text('chart'),
+            ),
+          ),
+          Card(
+            elevation: 5.0,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  const TextField(
+                    decoration: InputDecoration(
+                      //label: Text('Title'),
+                      labelText: 'Title',
+                    ),
+                  ),
+                  const TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Amount',
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Add transaction'),
+                  ),
+                ],
+              ),
             ),
           ),
           Column(
@@ -96,7 +122,9 @@ class MyHomePage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  tx.date.toString(),
+                                  // DateFormat('dd/MM/yy').format(tx.date),
+                                  //DateFormat.yMMMMEEEEd().format(tx.date),
+                                  DateFormat.yMEd().format(tx.date),
                                   style: const TextStyle(
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.w300,
