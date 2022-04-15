@@ -37,60 +37,24 @@ class TransactionList extends StatelessWidget {
               )
             : ListView.builder(
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 100.0,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 15.0,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 2,
-                            ),
-                          ),
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            //tx.amount.toString(),
-                            '\$ ${transactions[index].amount.toStringAsFixed(2)}',
-                            style: TextStyle(
-                              //fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 12.0,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              transactions[index].title,
-                              style: const TextStyle(
-                                //fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Text(
-                              // DateFormat('dd/MM/yy').format(tx.date),
-                              //DateFormat.yMMMMEEEEd().format(tx.date),
-                              DateFormat.yMEd()
-                                  .format(transactions[index].date),
-                              style: const TextStyle(
-                                fontSize: 14.0,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                  return ListTile(
+                    leading: CircleAvatar(
+                      child: Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: FittedBox(
+                            child: Text('\$${transactions[index].amount}')),
+                      ),
+                      radius: 30.0,
                     ),
+                    title: Text(
+                      transactions[index].title,
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMEd().format(transactions[index].date),
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    trailing: Icon(Icons.delete),
                   );
                 },
                 itemCount: transactions.length,

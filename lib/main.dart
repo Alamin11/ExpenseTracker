@@ -22,10 +22,21 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         //colorScheme: ColorScheme.fromSwatch(),
         fontFamily: 'LobsterTwo',
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(
-            fontFamily: 'RobotoCondensed',
-            fontSize: 20.0,
+        textTheme: const TextTheme(
+          headline4: TextStyle(
+            //fontFamily: 'LobsterTwo',
+            // fontWeight: FontWeight.normal,
+            color: Colors.white,
+          ),
+          // headline6: TextStyle(
+          //     //fontFamily: 'LobsterTwo',
+          //     //fontSize: 20.0,
+          //     //fontWeight: FontWeight.bold,
+          //     ),
+          subtitle2: TextStyle(
+            //fontFamily: 'LobsterTwo',
+            // fontSize: 14,
+            color: Colors.grey,
           ),
         ),
       ),
@@ -102,11 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(
           titleText,
-          style: const TextStyle(
-            fontFamily: 'RobotoCondensed',
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.headline4,
         ),
         actions: [
           IconButton(
