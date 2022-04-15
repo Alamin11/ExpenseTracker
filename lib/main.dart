@@ -1,3 +1,4 @@
+import 'package:expense_tracker/widgets/chart.dart';
 import 'package:flutter/material.dart';
 import './widgets/new_transaction.dart';
 import '../models/transaction.dart';
@@ -43,6 +44,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // final titleController = TextEditingController();
   // final amountController = TextEditingController();
+  List<Transaction> get _recentTransaction {
+    return _userTransactions
+        .where(
+          (tx) => tx.date.isAfter(
+            DateTime.now().subtract(
+              const Duration(days: 7),
+            ),
+          ),
+        )
+        .toList();
+  }
 
   final List<Transaction> _userTransactions = [
     /*Transaction(
@@ -59,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ),*/
   ];
 
-  void _AddNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount) {
     final newTransaction = Transaction(
       id: DateTime.now().toString(),
       title: title,
@@ -76,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context: ctx,
       builder: (_) {
         return GestureDetector(
-          child: NewTransaction(_AddNewTransaction),
+          child: NewTransaction(_addNewTransaction),
           onTap: () {},
           behavior: HitTestBehavior.opaque,
         );
@@ -107,13 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Card(
-              child: Container(
-                width: double.infinity,
-                color: Colors.amberAccent,
-                child: const Text('chart'),
-              ),
-            ),
+            Chart(_recentTransaction),
             TransactionList(_userTransactions),
           ],
         ),
