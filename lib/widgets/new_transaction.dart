@@ -60,9 +60,10 @@ class _NewTransactionState extends State<NewTransaction> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             TextField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 //label: Text('Title'),
                 labelText: 'Title',
+                labelStyle: Theme.of(context).textTheme.headline6,
               ),
               keyboardType: TextInputType.text,
               onSubmitted: (_) => submitTx(), //submitting from soft keyboard
@@ -70,8 +71,9 @@ class _NewTransactionState extends State<NewTransaction> {
               controller: titleController,
             ),
             TextField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Amount',
+                labelStyle: Theme.of(context).textTheme.headline6,
               ),
               keyboardType: TextInputType.number,
               onSubmitted: (_) => submitTx(),
@@ -90,6 +92,7 @@ class _NewTransactionState extends State<NewTransaction> {
                       _selectedDate == null
                           ? 'No date choosen'
                           : DateFormat.yMMMEd().format(_selectedDate!),
+                      style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ),
                   const SizedBox(

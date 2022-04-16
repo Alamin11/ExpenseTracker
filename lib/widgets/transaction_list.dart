@@ -4,17 +4,19 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
-  const TransactionList(this.transactions, {Key? key}) : super(key: key);
+  final Function deleteTx;
+  const TransactionList(this.transactions, this.deleteTx, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 340,
+        height: 600,
         child: transactions.isEmpty
             ? Column(
                 children: [
                   const SizedBox(
-                    height: 16.0,
+                    height: 24.0,
                   ),
                   const Text(
                     'No transaction added yet',
@@ -54,7 +56,11 @@ class TransactionList extends StatelessWidget {
                       DateFormat.yMMMEd().format(transactions[index].date),
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
-                    trailing: Icon(Icons.delete),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () => deleteTx(transactions[index].id),
+                    ),
                   );
                 },
                 itemCount: transactions.length,
