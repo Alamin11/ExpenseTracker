@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
@@ -11,32 +12,34 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-       // height: MediaQuery.of(context).size.height * .6,
+        // height: MediaQuery.of(context).size.height * .6,
         child: transactions.isEmpty
-            ? Column(
-                children: [
-                  const SizedBox(
-                    height: 24.0,
-                  ),
-                  const Text(
-                    'No transaction added yet',
-                    style: TextStyle(
-                      //fontFamily: 'RobotoCondensed',
-                      fontSize: 20.0,
+            ? LayoutBuilder(builder: (context, constraints) {
+                return Column(
+                  children: [
+                    const SizedBox(
+                      height: 24.0,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 16.0,
-                  ),
-                  SizedBox(
-                    height: 200,
-                    child: Image.asset(
-                      'assets/images/transparentWaiting.gif',
-                      fit: BoxFit.cover,
+                    const Text(
+                      'No transaction added yet',
+                      style: TextStyle(
+                        //fontFamily: 'RobotoCondensed',
+                        fontSize: 20.0,
+                      ),
                     ),
-                  ),
-                ],
-              )
+                    const SizedBox(
+                      height: 16.0,
+                    ),
+                    SizedBox(
+                      height: constraints.maxHeight * .6,
+                      child: Image.asset(
+                        'assets/images/transparentWaiting.gif',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                );
+              })
             : ListView.builder(
                 itemBuilder: (context, index) {
                   return ListTile(
@@ -56,11 +59,19 @@ class TransactionList extends StatelessWidget {
                       DateFormat.yMMMEd().format(transactions[index].date),
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () => deleteTx(transactions[index].id),
-                    ),
+                    trailing: MediaQuery.of(context).size.width > 300
+                        ? TextButton.icon(
+                            onPressed: () => deleteTx(transactions[index].id),
+                            icon: Icon(Icons.delete),
+                            label: Text('Delete'),
+                            style: TextButton.styleFrom(
+                                primary: Theme.of(context).errorColor),
+                          )
+                        : IconButton(
+                            icon: Icon(Icons.delete),
+                            color: Theme.of(context).errorColor,
+                            onPressed: () => deleteTx(transactions[index].id),
+                          ),
                   );
                 },
                 itemCount: transactions.length,

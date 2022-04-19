@@ -52,71 +52,78 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5.0,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                //label: Text('Title'),
-                labelText: 'Title',
-                labelStyle: Theme.of(context).textTheme.headline6,
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5.0,
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 10.0,
+            left: 10.0,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10.0,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  //label: Text('Title'),
+                  labelText: 'Title',
+                  labelStyle: Theme.of(context).textTheme.headline6,
+                ),
+                keyboardType: TextInputType.text,
+                onSubmitted: (_) => submitTx(), //submitting from soft keyboard
+                //onChanged: (value) => titleInput = value,
+                controller: titleController,
               ),
-              keyboardType: TextInputType.text,
-              onSubmitted: (_) => submitTx(), //submitting from soft keyboard
-              //onChanged: (value) => titleInput = value,
-              controller: titleController,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Amount',
-                labelStyle: Theme.of(context).textTheme.headline6,
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Amount',
+                  labelStyle: Theme.of(context).textTheme.headline6,
+                ),
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => submitTx(),
+                // onChanged: (value) {
+                //   amountInput = value;
+                // },
+                controller: amountController,
               ),
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitTx(),
-              // onChanged: (value) {
-              //   amountInput = value;
-              // },
-              controller: amountController,
-            ),
-            SizedBox(
-              height: 60,
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: Text(
-                      _selectedDate == null
-                          ? 'No date choosen'
-                          : DateFormat.yMMMEd().format(_selectedDate!),
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  MaterialButton(
-                    onPressed: _presentDatePicker,
-                    child: Text(
-                      'Choose date',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor,
+              SizedBox(
+                height: 60,
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        _selectedDate == null
+                            ? 'No date choosen'
+                            : DateFormat.yMMMEd().format(_selectedDate!),
+                        style: Theme.of(context).textTheme.bodyText2,
                       ),
                     ),
-                  )
-                ],
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    MaterialButton(
+                      onPressed: _presentDatePicker,
+                      child: Text(
+                        'Choose date',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: submitTx,
-              child: const Text('Add transaction'),
-            ),
-          ],
+              ElevatedButton(
+                onPressed: submitTx,
+                child: const Text('Add transaction'),
+              ),
+            ],
+          ),
         ),
       ),
     );
